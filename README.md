@@ -8,3 +8,8 @@ In regular implementations of the POM, clicking on buttons and links often resul
 This class provides methods that wrap selenium's click(), send_keys(), text and get_attribute() methods to first wait for the locator to be present and displayed, then do the action, and, in the case of click() and send_keys(), wait for ajax to finish (as defined by jQuery.active == 0).
 
 In this way, the Page Object writer is assured that the element they are trying to interact with will be there, and any processes that action triggers will be finished before the method returns.
+
+Attributes
+==========
+
+spinner icon used in testing from http://www.andrewdavidson.com/articles/spinning-wait-icons/ under http://creativecommons.org/licenses/by-nc-sa/2.5/

@@ -1,0 +1,26 @@
+checklist of things needed to test JSAppPOM:
+
+general
+* ajax that runs less than timeout
+* ajax that runs more than timeout
+* web page 1
+* web page 2
+
+ajax timeout tests
+* a visible button that causes long ajax
+* a visible link that causes long ajax
+* a visible text input that causes long ajax
+
+visibility timeout tests
+* an invisible button
+* an invisible link
+* an invisible text input
+* an invisible node with text
+* an invisible node with attribute
+
+happy path tests
+* a visible button that causes short ajax
+* a visible link that causes short ajax
+* a visible text input that causes short ajax
+* a visible node with text
+* a visible node with attribute

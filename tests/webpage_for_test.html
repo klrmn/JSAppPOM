@@ -1,0 +1,64 @@
+<!-- this page inspired by
+  http://code.google.com/p/selenium/source/browse/trunk/common/src/web/dynamicallyModifiedPage.html
+-->
+<?xml version="1.0">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>Delayed hiding of and displaying of elements</title>
+    <style>.hide{display:none}</style>
+    <style>.show{display:block}</style>
+    <script type="text/javascript">
+      
+      var parentNode;
+      var elementId;
+        
+      function hideSpinner()
+      {
+        document.getElementById('spinner').style.display = 'none'
+      }
+
+      function showSpinner()
+      {
+        document.getElementById('spinner').style.display = 'block'
+      }
+
+      function spinnerShort()
+      {
+        showSpinner()
+        var t = setTimeout('hideSpinner()', 1000 * 10);
+      }
+
+      function spinnerLong()
+      {
+        showSpinner()
+        var t = setTimeout('hideSpinner()', 1000 * 70);
+      }
+
+      function hideElement(id)
+      {
+        var element = document.getElementById(id);
+        element.style.visibility = 'hidden';
+        spinnerShort()
+      }
+
+    </script>
+
+  </head>
+  <body>
+    <image id="spinner" class='hide' src="wait24.gif">
+    <br>
+    <form>
+      <input id="button" type="button" value="button will be hidden on click"
+      onclick="hideElement('button')"/>
+      <br>
+      <input id="text_field" type="text" value="text field will be hidden on click" 
+      onclick="hideElement('text_field')"/>
+      <br>
+      <a id="link" href="#" onclick="hideElement('link')">link will be hidden on click</a>
+      <br>
+      <p id="visible-p" class="show">This is a visible paragraph.</p>
+      <br>
+      <p id="invisible-p" class="hide">This is an invisible paragraph.</p>
+    </form>
+  </body>
+</html>
