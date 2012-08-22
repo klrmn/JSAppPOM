@@ -1,3 +1,8 @@
+<!--
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
 <!-- this page inspired by
   http://code.google.com/p/selenium/source/browse/trunk/common/src/web/dynamicallyModifiedPage.html
 -->
@@ -5,8 +10,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <title>Delayed hiding of and displaying of elements</title>
-    <style>.hide{display:none}</style>
-    <style>.show{display:block}</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript">
       
       function hideElement(id, delay)
@@ -40,7 +44,7 @@
 
   </head>
   <body>
-    <image id="spinner" class='hide' src="wait24.gif">
+    <image id="spinner" style="{display:none}" src="tests/wait24.gif">
     <br>
     <form>
       <p>

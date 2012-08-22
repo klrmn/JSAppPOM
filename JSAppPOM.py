@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 class JSAppPOM(object):
     '''A Page Object Model base class for pages generated dynamically by javascript.'''
 
-    def __init__(mozwebqa):
+    def __init__(self, mozwebqa):
         '''JSAppPOM constructor.
         :Args:
         - mozwebqa - as provided by the pytest-mozwebqa plugin, or any object implementing 'selenium' and 'timeout' attributes.
@@ -75,7 +75,7 @@ class JSAppPOM(object):
         self.wait_for_ajax()
 
     @property
-    def text(*locator):
+    def text(self, *locator):
         '''Instance Method. Waits for locator, then returns the text.
         :Args:        
         - locator - a tuple consisting of 
@@ -85,7 +85,7 @@ class JSAppPOM(object):
         self.wait_for_locator(*locator)
         return self.selenium.find_element(*locator).text
 
-    def get_attribute(attribute, *locator):
+    def get_attribute(self, attribute, *locator):
         '''Instance Method. Waits for locator, then gets the attribute.
         :Args:
         - attribute - for example, 'value', 'class' or 'style' 
@@ -96,7 +96,7 @@ class JSAppPOM(object):
         self.wait_for_locator(*locator)
         return self.selenium.find_element(*locator).get_attribute(attribute)
 
-    def clear_and_type(value, *locator):
+    def clear_and_type(self, value, *locator):
         '''Instance Method. Waits for locator, sends keys, then waits for ajax to finish.
         :Args:
         - value - keys to send
