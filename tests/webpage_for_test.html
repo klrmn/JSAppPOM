@@ -9,36 +9,31 @@
     <style>.show{display:block}</style>
     <script type="text/javascript">
       
-      var parentNode;
-      var elementId;
-        
-      function hideSpinner()
+      function hideElement(id, delay)
       {
-        document.getElementById('spinner').style.display = 'none'
+        var t = setTimeout(
+          "document.getElementById('" + id + "').style.display = 'none'",
+          1000 * delay);
       }
 
-      function showSpinner()
+      function showElement(id, delay)
       {
-        document.getElementById('spinner').style.display = 'block'
+        var t = setTimeout(
+          "document.getElementById('" + id + "').style.display = 'block'",
+          1000 * delay);
       }
 
-      function spinnerShort()
+      function displaySpinner(sec)
       {
-        showSpinner()
-        var t = setTimeout('hideSpinner()', 1000 * 10);
+        showElement('spinner', 0);
+        hideElement('spinner', sec)
       }
 
-      function spinnerLong()
+      function replaceElement(id)
       {
-        showSpinner()
-        var t = setTimeout('hideSpinner()', 1000 * 70);
-      }
-
-      function hideElement(id)
-      {
-        var element = document.getElementById(id);
-        element.style.visibility = 'hidden';
-        spinnerShort()
+        hideElement(id, 0);
+        displaySpinner(10)
+        showElement('second_' + id, 10)
       }
 
     </script>
@@ -48,17 +43,18 @@
     <image id="spinner" class='hide' src="wait24.gif">
     <br>
     <form>
-      <input id="button" type="button" value="button will be hidden on click"
-      onclick="hideElement('button')"/>
-      <br>
-      <input id="text_field" type="text" value="text field will be hidden on click" 
-      onclick="hideElement('text_field')"/>
-      <br>
-      <a id="link" href="#" onclick="hideElement('link')">link will be hidden on click</a>
-      <br>
-      <p id="visible-p" class="show">This is a visible paragraph.</p>
-      <br>
-      <p id="invisible-p" class="hide">This is an invisible paragraph.</p>
+      <p>
+        <input id="button" type="button" value="disappearing" onclick="replaceElement('button')"/>
+        <input id="second_button" type="button" value="appearing" style="{display:none}"/>
+        <input id="third_button" type="button" value="invisible" style="{display:none}"/>
+      <p>
+        <input id="text" type="text" value="disappearing" onchange="replaceElement('text')"/>
+        <input id="second_text" type="text" value="appearing" style="{display:none}"/>
+        <input id="third_text" type="text" value="invisible" style="{display:none}"/>
+      <p>
+        <a id="link" href="#" onclick="replaceElement('link')">disappearing</a>
+        <a id="second_link" href="#" style="{display:none}">appearing</a>
+        <a id="third_link" href="#" style="{display:none}">invisible</a>
     </form>
   </body>
 </html>

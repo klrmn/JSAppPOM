@@ -14,6 +14,15 @@ class JSAppPOM(object):
         self.selenium = mozwebqa.selenium
         self.timeout  = mozwebqa.timeout
 
+    def is_visible_now(self):
+        self.selenium.implicit_timeout(0)
+        answer = self.selenium.find_element(*locator).is_displayed()
+        self.selenium.implicit_timeout(self.timeout)
+        return answer
+
+    def ajax_has_stopped_now(self):
+        return self.selenium.execute_script('return jQuery.active == 0')
+
     def wait_for_ajax(self):
         WebDriverWait(self.selenium, self.timeout).until(
             lambda s: self.selenium.execute_script('return jQuery.active == 0'))
@@ -38,11 +47,11 @@ class JSAppPOM(object):
         self.wait_for_locator(*locator)
         return self.selenium.find_element(*locator).text
 
-    def get_attribute(*locator, attribute):
+    def get_attribute(attribute, *locator):
         self.wait_for_locator(*locator)
         return self.selenium.find_element(*locator).get_attribute(attribute)
 
-    def clear_and_type(*locator, value):
+    def clear_and_type(value, *locator):
         self.wait_for_locator(*locator)
         element = self.selenium.find_element(*locator)
         element.clear()
