@@ -9,56 +9,38 @@
 <?xml version="1.0">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <title>Delayed hiding of and displaying of elements</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript">
-      
-      function hideElement(id, delay)
-      {
-        var t = setTimeout(
-          "document.getElementById('" + id + "').style.display = 'none'",
-          1000 * delay);
-      }
-
-      function showElement(id, delay)
-      {
-        var t = setTimeout(
-          "document.getElementById('" + id + "').style.display = 'block'",
-          1000 * delay);
-      }
-
-      function displaySpinner(sec)
-      {
-        showElement('spinner', 0);
-        hideElement('spinner', sec)
-      }
-
-      function replaceElement(id)
-      {
-        hideElement(id, 0);
-        displaySpinner(10)
-        showElement('second_' + id, 10)
-      }
-
-    </script>
-
+    <title>Delayed displaying of elements</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
   </head>
   <body>
     <image id="spinner" style="{display:none}" src="tests/wait24.gif">
     <br>
     <form>
       <p>
-        <input id="button" type="button" value="disappearing" onclick="replaceElement('button')"/>
+        <input id="button" type="button" value="click here for button" />
         <input id="second_button" type="button" value="appearing" style="{display:none}"/>
         <input id="third_button" type="button" value="invisible" style="{display:none}"/>
       <p>
-        <input id="text" type="text" value="disappearing" onchange="replaceElement('text')"/>
+        <input id="text" type="text" value="change me then go away" />
         <input id="second_text" type="text" value="appearing" style="{display:none}"/>
         <input id="third_text" type="text" value="invisible" style="{display:none}"/>
       <p>
-        <a id="link" href="#" onclick="replaceElement('link')">disappearing</a>
+        <input id="link" type="button" value="click here for link" />
         <a id="second_link" href="#" style="{display:none}">appearing</a>
         <a id="third_link" href="#" style="{display:none}">invisible</a>
     </form>
+<script>
+  $("input#link").click(function(event) {
+    $("a#second_link").show(10000);
+  });
+
+  $("input#button").click(function(event) {
+    $("input#second_button").show(10000);
+  });
+
+  $("input#text").blur(function(event) {
+    $("input#second_text").show(10000);
+  });
+</script>
   </body>
 </html>

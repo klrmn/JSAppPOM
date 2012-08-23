@@ -5,6 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import pytest
+import time
 
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import ElementNotVisibleException, WebDriverException
@@ -14,6 +15,9 @@ from JSAppPOM import JSAppPOM
 
 @pytest.mark.nondestructive
 class TestPlainPageObject(object):
+    '''If there are tests in this file that are failing, then some of the results in
+    test_jsapppom.py are false passes.
+    '''
 
     class PageObject(object):
 
@@ -22,24 +26,22 @@ class TestPlainPageObject(object):
             self.selenium = mozwebqa.selenium
             self.timeout = mozwebqa.timeout
 
-        def ajax_has_stopped_now(self):
-            return self.selenium.execute_script('return jQuery.active == 0')
+        def ajax_active_state(self):
+            return self.selenium.execute_script('return jQuery.active')
 
 
     # click tests
-    @pytest.mark.parametrize('element', ['button', 'link'])
-    def test_click_does_not_wait_for_ajax_to_finish_before_returning(self, mozwebqa, element):
+    def test_click_does_not_wait_for_ajax_to_finish_before_returning(self, mozwebqa):
         pom = self.PageObject(mozwebqa)
-        pom.selenium.find_element(By.ID, element).click()
-        is_running = not pom.ajax_has_stopped_now()
-        assert is_running
+        pom.selenium.find_element(By.ID, 'button').click()
+        time.sleep(2)
+        assert pom.ajax_active_state() != 0
 
-    @pytest.mark.parametrize('element', ['button', 'link'])
-    def test_click_does_not_wait_for_element_to_be_visible(self, mozwebqa, element):
+    def test_click_does_not_wait_for_element_to_be_visible(self, mozwebqa):
         pom = self.PageObject(mozwebqa)
-        pom.selenium.find_element(By.ID, element).click()
+        pom.selenium.find_element(By.ID, 'button').click()
         try:
-            pom.selenium.find_element(By.ID, 'second_' + element).click()
+            pom.selenium.find_element(By.ID, 'second_button').click()
         except ElementNotVisibleException as e:
             assert e.msg != ""
 
@@ -47,8 +49,8 @@ class TestPlainPageObject(object):
     def test_send_keys_does_not_wait_for_ajax_to_finish_before_returning(self, mozwebqa):
         pom = self.PageObject(mozwebqa)
         pom.selenium.find_element(By.ID, 'text').send_keys('some text\t')
-        is_running = not pom.ajax_has_stopped_now()
-        assert is_running
+        time.sleep(2)
+        assert pom.ajax_active_state() != 0
 
     def test_send_keys_does_not_wait_for_element_to_be_visible(self, mozwebqa):
         pom = self.PageObject(mozwebqa)
