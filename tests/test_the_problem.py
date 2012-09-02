@@ -34,7 +34,6 @@ class TestPlainPageObject(object):
     def test_click_does_not_wait_for_ajax_to_finish_before_returning(self, mozwebqa):
         pom = self.PageObject(mozwebqa)
         pom.selenium.find_element(By.ID, 'button').click()
-        time.sleep(2)
         assert pom.ajax_active_state() != 0
 
     def test_click_does_not_wait_for_element_to_be_visible(self, mozwebqa):
@@ -49,7 +48,6 @@ class TestPlainPageObject(object):
     def test_send_keys_does_not_wait_for_ajax_to_finish_before_returning(self, mozwebqa):
         pom = self.PageObject(mozwebqa)
         pom.selenium.find_element(By.ID, 'text').send_keys('some text\t')
-        time.sleep(2)
         assert pom.ajax_active_state() != 0
 
     def test_send_keys_does_not_wait_for_element_to_be_visible(self, mozwebqa):
